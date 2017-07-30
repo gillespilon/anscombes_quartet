@@ -73,7 +73,7 @@ Work in progress.
 
 ## References
 
-Work in progress.
+Anscombe, F.J. 1973. "Graphs in Statistical Analysis." *American Statistician* 27(1): 17-21. [JSTOR 2682899](https://www.jstor.org/stable/2682899).
 
 ## License
 
