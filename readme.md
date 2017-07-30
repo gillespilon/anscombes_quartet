@@ -75,6 +75,8 @@ Work in progress.
 
 Anscombe, F.J. 1973. "Graphs in Statistical Analysis." *American Statistician* 27(1): 17-21. [JSTOR 2682899](https://www.jstor.org/stable/2682899).
 
+Wikipedia. 2017. "Anscombe's quartet." Last modified 2017-06-12. [https://en.wikipedia.org/wiki/Anscombe%27s_quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet).
+
 ## License
 
 Copyright (c) 2017 GILLES PILON <gillespilon@gmail.com>.
