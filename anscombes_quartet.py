@@ -84,3 +84,8 @@ for i in range(2):
         despine(ax)
 plt.tight_layout(pad=3)
 plt.savefig('aq.svg')
+
+
+for i in range(2):
+    for j in range(2):
+        plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
