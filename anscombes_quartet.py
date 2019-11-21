@@ -65,3 +65,22 @@ ylim = [2, 14]
 fighw = [8, 6]
 c = cm.Paired.colors
 df = [(aq1, aq2), (aq3, aq4)]
+
+
+fig = plt.figure(figsize=(fighw))
+fig.suptitle(title, fontweight="bold")
+gs = GridSpec(2, 2, figure=fig)
+for i in range(2):
+    for j in range(2):
+        ax = fig.add_subplot(gs[i, j])
+        ax.scatter(df[i][j]['x'], df[i][j]['y'],            color=c[0], linewidth=0, linestyle="-", s=10,            label="I")
+        b, m = nppoly.polyfit(df[i][j]['x'], df[i][j]['y'], 1)
+        ax.plot(df[i][j]['x'], m*df[i][j]['x'] +                 b, '-', color=c[1])
+        ax.set_ylim(ylim)
+        ax.set_xlim(xlim)
+        ax.set_title(titles[i][j])
+        ax.set_ylabel(yaxislabel)
+        ax.set_xlabel(xaxislabel)
+        despine(ax)
+plt.tight_layout(pad=3)
+plt.savefig('aq.svg')
