@@ -35,3 +35,16 @@ def despine(ax: axes.Axes) -> None:
         ax.spines[spine].set_visible(False)
 
 
+def plot_scatter(dfx, dfy, i, j):
+    fig, ax = plt.subplots(figsize=(fighw))
+    fig.suptitle(title, fontweight="bold")
+    ax.scatter(dfx, dfy,        color=c[0], linewidth=0, linestyle="-", s=10,        label="I")
+    b, m = nppoly.polyfit(dfx, dfy, 1)
+    ax.plot(dfx, m*dfx +             b, '-', color=c[1])
+    ax.set_ylim(ylim)
+    ax.set_xlim(xlim)
+    ax.set_title(titles[i][j])
+    ax.set_ylabel(yaxislabel)
+    ax.set_xlabel(xaxislabel)
+    despine(ax)
+    return ax
