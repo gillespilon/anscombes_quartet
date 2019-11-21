@@ -48,3 +48,20 @@ def plot_scatter(dfx, dfy, i, j):
     ax.set_xlabel(xaxislabel)
     despine(ax)
     return ax
+
+
+aq1 = pd.read_csv('aq1.csv')
+aq2 = pd.read_csv('aq2.csv')
+aq3 = pd.read_csv('aq3.csv')
+aq4 = pd.read_csv('aq4.csv')
+
+
+title = "Anscombe's Quartet"
+titles =[('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
+yaxislabel = 'Y'
+xaxislabel = 'X'
+xlim = [2, 20]
+ylim = [2, 14]
+fighw = [8, 6]
+c = cm.Paired.colors
+df = [(aq1, aq2), (aq3, aq4)]
