@@ -33,13 +33,13 @@ def despine(ax: axes.Axes) -> None:
 
 def plot_scatter(dfx, dfy, i, j):
     fig, ax = plt.subplots(figsize=(fighw))
-    fig.suptitle(title, fontweight="bold")
+    fig.suptitle(fig_title, fontweight="bold")
     ax.scatter(dfx, dfy, color=c[0], lw=0, ls="-", s=10, label="I")
     b, m = nppoly.polyfit(dfx, dfy, 1)
     ax.plot(dfx, m*dfx + b, '-', color=c[1])
     ax.set_ylim(ylim)
     ax.set_xlim(xlim)
-    ax.set_title(titles[i][j])
+    ax.set_title(ax_title[i][j])
     ax.set_ylabel(yaxislabel)
     ax.set_xlabel(xaxislabel)
     despine(ax)
@@ -83,8 +83,8 @@ def plot_four_in_one(df):
 
 
 if __name__ == '__main__':
-    title = "Anscombe's Quartet"
-    titles = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
+    fig_title = "Anscombe's Quartet"
+    ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
     yaxislabel = 'Y'
     xaxislabel = 'X'
     xlim = [2, 20]
