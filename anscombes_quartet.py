@@ -19,10 +19,6 @@ import matplotlib.axes as axes
 from matplotlib.gridspec import GridSpec
 
 
-get_ipython().run_line_magic('matplotlib', 'inline')
-get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'svg'")
-
-
 def despine(ax: axes.Axes) -> None:
     '''
     Remove the top and right spines of a graph.
@@ -38,9 +34,9 @@ def despine(ax: axes.Axes) -> None:
 def plot_scatter(dfx, dfy, i, j):
     fig, ax = plt.subplots(figsize=(fighw))
     fig.suptitle(title, fontweight="bold")
-    ax.scatter(dfx, dfy,        color=c[0], linewidth=0, linestyle="-", s=10,        label="I")
+    ax.scatter(dfx, dfy, color=c[0], lw=0, ls="-", s=10, label="I")
     b, m = nppoly.polyfit(dfx, dfy, 1)
-    ax.plot(dfx, m*dfx +             b, '-', color=c[1])
+    ax.plot(dfx, m*dfx + b, '-', color=c[1])
     ax.set_ylim(ylim)
     ax.set_xlim(xlim)
     ax.set_title(titles[i][j])
@@ -50,42 +46,45 @@ def plot_scatter(dfx, dfy, i, j):
     return ax
 
 
-aq1 = pd.read_csv('aq1.csv')
-aq2 = pd.read_csv('aq2.csv')
-aq3 = pd.read_csv('aq3.csv')
-aq4 = pd.read_csv('aq4.csv')
+def read_files():
+    aq1 = pd.read_csv('aq1.csv')
+    aq2 = pd.read_csv('aq2.csv')
+    aq3 = pd.read_csv('aq3.csv')
+    aq4 = pd.read_csv('aq4.csv')
+    return aq1, aq2, aq3, aq4
 
 
-title = "Anscombe's Quartet"
-titles =[('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
-yaxislabel = 'Y'
-xaxislabel = 'X'
-xlim = [2, 20]
-ylim = [2, 14]
-fighw = [8, 6]
-c = cm.Paired.colors
-df = [(aq1, aq2), (aq3, aq4)]
-
-
-fig = plt.figure(figsize=(fighw))
-fig.suptitle(title, fontweight="bold")
-gs = GridSpec(2, 2, figure=fig)
-for i in range(2):
-    for j in range(2):
-        ax = fig.add_subplot(gs[i, j])
-        ax.scatter(df[i][j]['x'], df[i][j]['y'],            color=c[0], linewidth=0, linestyle="-", s=10,            label="I")
-        b, m = nppoly.polyfit(df[i][j]['x'], df[i][j]['y'], 1)
-        ax.plot(df[i][j]['x'], m*df[i][j]['x'] +                 b, '-', color=c[1])
-        ax.set_ylim(ylim)
-        ax.set_xlim(xlim)
-        ax.set_title(titles[i][j])
-        ax.set_ylabel(yaxislabel)
-        ax.set_xlabel(xaxislabel)
-        despine(ax)
-plt.tight_layout(pad=3)
-plt.savefig('aq.svg')
-
-
-for i in range(2):
-    for j in range(2):
-        plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
+if __name__ == '__main__':
+    pass
+    title = "Anscombe's Quartet"
+    titles = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
+    yaxislabel = 'Y'
+    xaxislabel = 'X'
+    xlim = [2, 20]
+    ylim = [2, 14]
+    fighw = [8, 6]
+    c = cm.Paired.colors
+    aq1, aq2, aq3, aq4 = read_files()
+    df = [(aq1, aq2), (aq3, aq4)]
+    fig = plt.figure(figsize=(fighw))
+    fig.suptitle(title, fontweight="bold")
+    gs = GridSpec(2, 2, figure=fig)
+    for i in range(2):
+        for j in range(2):
+            ax = fig.add_subplot(gs[i, j])
+            ax.scatter(df[i][j]['x'], df[i][j]['y'], color=c[0], linewidth=0,
+                       linestyle="-", s=10, label="I")
+            b, m = nppoly.polyfit(df[i][j]['x'], df[i][j]['y'], 1)
+            ax.plot(df[i][j]['x'], m*df[i][j]['x'] + b, '-', color=c[1])
+            ax.set_ylim(ylim)
+            ax.set_xlim(xlim)
+            ax.set_title(titles[i][j])
+            ax.set_ylabel(yaxislabel)
+            ax.set_xlabel(xaxislabel)
+            despine(ax)
+    plt.tight_layout(pad=3)
+    plt.savefig('aq.svg')
+    for i in range(2):
+        for j in range(2):
+            plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
+            plt.savefig(f'aq{i}{j}.svg')
