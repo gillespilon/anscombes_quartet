@@ -94,3 +94,4 @@ if __name__ == '__main__':
     aq1, aq2, aq3, aq4 = read_files()
     df = [(aq1, aq2), (aq3, aq4)]
     plot_four_in_one(df)
+    plot_one_in_four(df)
