@@ -54,6 +54,13 @@ def read_files():
     return aq1, aq2, aq3, aq4
 
 
+def plot_one_in_four(df):
+    for i in range(2):
+        for j in range(2):
+            plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
+            plt.savefig(f'aq{i}{j}.svg')
+
+
 if __name__ == '__main__':
     title = "Anscombe's Quartet"
     titles = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
@@ -83,7 +90,3 @@ if __name__ == '__main__':
             despine(ax)
     plt.tight_layout(pad=3)
     plt.savefig('aq.svg')
-    for i in range(2):
-        for j in range(2):
-            plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
-            plt.savefig(f'aq{i}{j}.svg')
