@@ -61,17 +61,7 @@ def plot_one_in_four(df):
             plt.savefig(f'aq{i}{j}.svg')
 
 
-if __name__ == '__main__':
-    title = "Anscombe's Quartet"
-    titles = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
-    yaxislabel = 'Y'
-    xaxislabel = 'X'
-    xlim = [2, 20]
-    ylim = [2, 14]
-    fighw = [8, 6]
-    c = cm.Paired.colors
-    aq1, aq2, aq3, aq4 = read_files()
-    df = [(aq1, aq2), (aq3, aq4)]
+def plot_four_in_one(df):
     fig = plt.figure(figsize=(fighw))
     fig.suptitle(title, fontweight="bold")
     gs = GridSpec(2, 2, figure=fig)
@@ -90,3 +80,16 @@ if __name__ == '__main__':
             despine(ax)
     plt.tight_layout(pad=3)
     plt.savefig('aq.svg')
+
+
+if __name__ == '__main__':
+    title = "Anscombe's Quartet"
+    titles = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
+    yaxislabel = 'Y'
+    xaxislabel = 'X'
+    xlim = [2, 20]
+    ylim = [2, 14]
+    fighw = [8, 6]
+    c = cm.Paired.colors
+    aq1, aq2, aq3, aq4 = read_files()
+    df = [(aq1, aq2), (aq3, aq4)]
