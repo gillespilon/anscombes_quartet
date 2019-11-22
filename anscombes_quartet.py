@@ -55,7 +55,6 @@ def read_files():
 
 
 if __name__ == '__main__':
-    pass
     title = "Anscombe's Quartet"
     titles = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
     yaxislabel = 'Y'
