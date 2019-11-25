@@ -63,7 +63,7 @@ def plot_one_in_four(df):
 
 def plot_four_in_one(df):
     fig = plt.figure(figsize=(fighw))
-    fig.suptitle(title, fontweight="bold")
+    fig.suptitle(fig_title, fontweight="bold")
     gs = GridSpec(2, 2, figure=fig)
     for i in range(2):
         for j in range(2):
@@ -74,7 +74,7 @@ def plot_four_in_one(df):
             ax.plot(df[i][j]['x'], m*df[i][j]['x'] + b, '-', color=c[1])
             ax.set_ylim(ylim)
             ax.set_xlim(xlim)
-            ax.set_title(titles[i][j])
+            ax.set_title(ax_title[i][j])
             ax.set_ylabel(yaxislabel)
             ax.set_xlabel(xaxislabel)
             despine(ax)
