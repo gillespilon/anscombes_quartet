@@ -35,9 +35,12 @@ def plot_scatter(dfx, dfy, i, j):
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
     '''
-    fig, ax = plt.subplots(figsize=(fighw))
-    fig.suptitle(fig_title, fontweight="bold")
-    ax.scatter(dfx, dfy, color=c[0], lw=0, ls="-", s=10, label="I")
+    fig = plt.figure(figsize=fighw)
+    fig.suptitle(fig_title, fontweight='bold')
+    ax = fig.add_subplot(111)
+    ax.scatter(dfx, dfy,
+               color=c[0], linewidth=0,
+               linestyle="-", s=10, label="I")
     b, m = nppoly.polyfit(dfx, dfy, 1)
     ax.plot(dfx, m*dfx + b, '-', color=c[1])
     ax.set_ylim(ylim)
