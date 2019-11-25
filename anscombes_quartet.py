@@ -32,6 +32,9 @@ def despine(ax: axes.Axes) -> None:
 
 
 def plot_scatter(dfx, dfy, i, j):
+    '''
+    Plot each Anscombe Quartet graph in a figure by itself.
+    '''
     fig, ax = plt.subplots(figsize=(fighw))
     fig.suptitle(fig_title, fontweight="bold")
     ax.scatter(dfx, dfy, color=c[0], lw=0, ls="-", s=10, label="I")
@@ -47,6 +50,9 @@ def plot_scatter(dfx, dfy, i, j):
 
 
 def read_files():
+    '''
+    Read each of the Anscombe Quartet data files into a separate dataframe.
+    '''
     aq1 = pd.read_csv('aq1.csv')
     aq2 = pd.read_csv('aq2.csv')
     aq3 = pd.read_csv('aq3.csv')
@@ -55,6 +61,9 @@ def read_files():
 
 
 def plot_one_in_four(df):
+    '''
+    Plot each Anscombe Quartet graph in a figure by itself.
+    '''
     for i in range(2):
         for j in range(2):
             plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
@@ -62,6 +71,9 @@ def plot_one_in_four(df):
 
 
 def plot_four_in_one(df):
+    '''
+    Plot each Anscombe Quartet graph in an axes within a figure.
+    '''
     fig = plt.figure(figsize=(fighw))
     fig.suptitle(fig_title, fontweight="bold")
     gs = GridSpec(2, 2, figure=fig)
