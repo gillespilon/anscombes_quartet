@@ -1,22 +1,21 @@
 #! /usr/bin/env python3
-
-
-'''
+"""
 Anscombe's quartet
 
 - Create Anscombe's quartet of four graphs as four axes in one figure.
 - Create Anscombe's quartet of four graphs as four separate figures.
 
 ./anscombes_quartet.py
-'''
+"""
 
-
-import pandas as pd
-import matplotlib.pyplot as plt
 from numpy.polynomial import polynomial as nppoly
-import matplotlib.cm as cm
-import matplotlib.axes as axes
 from matplotlib.gridspec import GridSpec
+import matplotlib.pyplot as plt
+import matplotlib.axes as axes
+import pandas as pd
+
+colour1 = '#0077bb'
+colour2 = '#33bbee'
 
 
 def despine(ax: axes.Axes) -> None:
@@ -43,10 +42,10 @@ def plot_scatter(dfx, dfy, i, j):
     fig.suptitle(fig_title, fontweight='bold')
     ax = fig.add_subplot(111)
     ax.scatter(dfx, dfy,
-               color=c[0], linewidth=0,
+               color=colour1, linewidth=0,
                linestyle="-", s=10, label="I")
     b, m = nppoly.polyfit(dfx, dfy, 1)
-    ax.plot(dfx, m*dfx + b, '-', color=c[1])
+    ax.plot(dfx, m*dfx + b, '-', color=colour2)
     ax.set_ylim(ylim)
     ax.set_xlim(xlim)
     ax.set_title(ax_title[i][j])
@@ -87,10 +86,17 @@ def plot_four_in_one(df):
     for i in range(2):
         for j in range(2):
             ax = fig.add_subplot(gs[i, j])
-            ax.scatter(df[i][j]['x'], df[i][j]['y'], color=c[0], linewidth=0,
-                       linestyle="-", s=10, label="I")
+            ax.scatter(
+                df[i][j]['x'],
+                df[i][j]['y'],
+                color=colour1,
+                linewidth=0,
+                linestyle="-",
+                s=10,
+                label="I"
+            )
             b, m = nppoly.polyfit(df[i][j]['x'], df[i][j]['y'], 1)
-            ax.plot(df[i][j]['x'], m*df[i][j]['x'] + b, '-', color=c[1])
+            ax.plot(df[i][j]['x'], m*df[i][j]['x'] + b, '-', color=colour2)
             ax.set_ylim(ylim)
             ax.set_xlim(xlim)
             ax.set_title(ax_title[i][j])
@@ -109,7 +115,6 @@ if __name__ == '__main__':
     xlim = [2, 20]
     ylim = [2, 14]
     fighw = [8, 6]
-    c = cm.Paired.colors
     aq1, aq2, aq3, aq4 = read_files()
     df = [(aq1, aq2), (aq3, aq4)]
     plot_four_in_one(df)
