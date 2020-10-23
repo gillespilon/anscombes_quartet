@@ -16,6 +16,20 @@ import pandas as pd
 
 colour1 = '#0077bb'
 colour2 = '#33bbee'
+fig_title = "Anscombe's Quartet"
+ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
+yaxislabel = 'Y'
+xaxislabel = 'X'
+xlim = [2, 20]
+ylim = [2, 14]
+fighw = [8, 6]
+
+
+def main():
+    aq1, aq2, aq3, aq4 = read_files()
+    df = [(aq1, aq2), (aq3, aq4)]
+    plot_four_in_one(df)
+    plot_one_in_four(df)
 
 
 def despine(ax: axes.Axes) -> None:
@@ -73,7 +87,7 @@ def plot_one_in_four(df):
     for i in range(2):
         for j in range(2):
             plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
-            plt.savefig(f'aq{i}{j}.svg')
+            plt.savefig(fname=f'aq{i}{j}.svg')
 
 
 def plot_four_in_one(df):
@@ -104,18 +118,8 @@ def plot_four_in_one(df):
             ax.set_xlabel(xaxislabel)
             despine(ax)
     plt.tight_layout(pad=3)
-    plt.savefig('aq.svg')
+    plt.savefig(fname='aq.svg')
 
 
 if __name__ == '__main__':
-    fig_title = "Anscombe's Quartet"
-    ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
-    yaxislabel = 'Y'
-    xaxislabel = 'X'
-    xlim = [2, 20]
-    ylim = [2, 14]
-    fighw = [8, 6]
-    aq1, aq2, aq3, aq4 = read_files()
-    df = [(aq1, aq2), (aq3, aq4)]
-    plot_four_in_one(df)
-    plot_one_in_four(df)
+    main()
