@@ -22,7 +22,7 @@ yaxislabel = 'Y'
 xaxislabel = 'X'
 xlim = [2, 20]
 ylim = [2, 14]
-fighw = [8, 6]
+figsize = [8, 6]
 
 
 def main():
@@ -52,7 +52,7 @@ def plot_scatter(dfx, dfy, i, j):
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
     '''
-    fig = plt.figure(figsize=fighw)
+    fig = plt.figure(figsize=figsize)
     fig.suptitle(fig_title, fontweight='bold')
     ax = fig.add_subplot(111)
     ax.scatter(dfx, dfy,
@@ -94,7 +94,7 @@ def plot_four_in_one(df):
     '''
     Plot each Anscombe Quartet graph in an axes within a figure.
     '''
-    fig = plt.figure(figsize=(fighw))
+    fig = plt.figure(figsize=(figsize))
     fig.suptitle(fig_title, fontweight="bold")
     gs = GridSpec(2, 2, figure=fig)
     for i in range(2):
