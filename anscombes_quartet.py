@@ -27,10 +27,22 @@ colour2 = '#33bbee'
 
 
 def main():
+    output_url = 'anscombes_quartet.html'
+    header_title = 'anscombes_quartet'
+    header_id = 'anscombes-quarter'
+    original_stdout = ds.html_begin(
+        output_url=output_url,
+        header_title=header_title,
+        header_id=header_id
+    )
     aq1, aq2, aq3, aq4 = read_files()
     df = [(aq1, aq2), (aq3, aq4)]
     plot_four_in_one(df)
     plot_one_in_four(df)
+    ds.html_end(
+        original_stdout=original_stdout,
+        output_url=output_url
+    )
 
 
 def plot_scatter(dfx, dfy, i, j):
@@ -73,6 +85,7 @@ def plot_one_in_four(df):
         for j in range(2):
             plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
             plt.savefig(fname=f'aq{i}{j}.svg')
+            ds.html_figure(file_name=f'aq{i}{j}.svg')
 
 
 def plot_four_in_one(df):
@@ -104,6 +117,7 @@ def plot_four_in_one(df):
             ds.despine(ax)
     plt.tight_layout(pad=3)
     plt.savefig(fname='aq.svg')
+    ds.html_figure(file_name='aq.svg')
 
 
 if __name__ == '__main__':
