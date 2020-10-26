@@ -38,8 +38,8 @@ def plot_scatter(dfx, dfy, i, j):
     Plot each Anscombe Quartet graph in a figure by itself.
     '''
     fig = plt.figure(figsize=figsize)
-    fig.suptitle(fig_title, fontweight='bold')
     ax = fig.add_subplot(111)
+    fig.suptitle(fig_title, fontweight='bold')
     ax.scatter(dfx, dfy,
                color=colour1, linewidth=0,
                linestyle="-", s=10, label="I")
