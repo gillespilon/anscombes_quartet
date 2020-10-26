@@ -32,22 +32,6 @@ def main():
     plot_one_in_four(df)
 
 
-def despine(ax: axes.Axes) -> None:
-    """
-    Remove the top and right spines of a graph.
-
-    Parameters
-    ----------
-    ax : axes.Axes
-
-    Example
-    -------
-    >>> despine(ax)
-    """
-    for spine in 'right', 'top':
-        ax.spines[spine].set_visible(False)
-
-
 def plot_scatter(dfx, dfy, i, j):
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -116,7 +100,7 @@ def plot_four_in_one(df):
             ax.set_title(ax_title[i][j])
             ax.set_ylabel(yaxislabel)
             ax.set_xlabel(xaxislabel)
-            despine(ax)
+            ds.despine(ax)
     plt.tight_layout(pad=3)
     plt.savefig(fname='aq.svg')
 
