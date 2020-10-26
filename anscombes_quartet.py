@@ -12,10 +12,9 @@ from numpy.polynomial import polynomial as nppoly
 from matplotlib.gridspec import GridSpec
 import matplotlib.pyplot as plt
 import matplotlib.axes as axes
+import datasense as ds
 import pandas as pd
 
-colour1 = '#0077bb'
-colour2 = '#33bbee'
 fig_title = "Anscombe's Quartet"
 ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
 yaxislabel = 'Y'
@@ -23,6 +22,8 @@ xaxislabel = 'X'
 xlim = [2, 20]
 ylim = [2, 14]
 figsize = [8, 6]
+colour1 = '#0077bb'
+colour2 = '#33bbee'
 
 
 def main():
@@ -49,7 +50,7 @@ def plot_scatter(dfx, dfy, i, j):
     ax.set_title(ax_title[i][j])
     ax.set_ylabel(yaxislabel)
     ax.set_xlabel(xaxislabel)
-    despine(ax)
+    ds.despine(ax)
     return ax
 
 
