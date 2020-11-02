@@ -51,7 +51,10 @@ def plot_scatter(dfx, dfy, i, j):
     '''
     fig = plt.figure(figsize=figsize)
     ax = fig.add_subplot(111)
-    fig.suptitle(fig_title, fontweight='bold')
+    fig.suptitle(
+        t=fig_title,
+        fontweight='bold'
+    )
     ax.scatter(dfx, dfy,
                color=colour1, linewidth=0,
                linestyle="-", s=10, label="I")
@@ -93,7 +96,10 @@ def plot_four_in_one(df):
     Plot each Anscombe Quartet graph in an axes within a figure.
     '''
     fig = plt.figure(figsize=(figsize))
-    fig.suptitle(fig_title, fontweight="bold")
+    fig.suptitle(
+        t=fig_title,
+        fontweight="bold"
+    )
     gs = GridSpec(2, 2, figure=fig)
     for i in range(2):
         for j in range(2):
