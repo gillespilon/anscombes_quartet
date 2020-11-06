@@ -64,7 +64,7 @@ def plot_scatter(dfx, dfy, i, j):
     ax.set_xlim(xlim)
     ax.set_title(ax_title[i][j])
     ax.set_ylabel(yaxislabel)
-    ax.set_xlabel(xaxislabel)
+    ax.set_xlabel(xlabel=xaxislabel)
     ds.despine(ax)
     return ax
 
@@ -119,7 +119,7 @@ def plot_four_in_one(df):
             ax.set_xlim(xlim)
             ax.set_title(ax_title[i][j])
             ax.set_ylabel(yaxislabel)
-            ax.set_xlabel(xaxislabel)
+            ax.set_xlabel(xlabel=xaxislabel)
             ds.despine(ax)
     plt.tight_layout(pad=3)
     plt.savefig(fname='aq.svg')
