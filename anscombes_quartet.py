@@ -19,7 +19,6 @@ fig_title = "Anscombe's Quartet"
 ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
 yaxislabel = 'Y'
 xaxislabel = 'X'
-xlim = [2, 20]
 ylim = [2, 14]
 figsize = [8, 6]
 colour1 = '#0077bb'
@@ -61,7 +60,10 @@ def plot_scatter(dfx, dfy, i, j):
     b, m = nppoly.polyfit(dfx, dfy, 1)
     ax.plot(dfx, m*dfx + b, '-', color=colour2)
     ax.set_ylim(ylim)
-    ax.set_xlim(xlim)
+    ax.set_xlim(
+        left=2,
+        right=20
+    )
     ax.set_title(label=ax_title[i][j])
     ax.set_ylabel(ylabel=yaxislabel)
     ax.set_xlabel(xlabel=xaxislabel)
@@ -116,7 +118,10 @@ def plot_four_in_one(df):
             b, m = nppoly.polyfit(df[i][j]['x'], df[i][j]['y'], 1)
             ax.plot(df[i][j]['x'], m*df[i][j]['x'] + b, '-', color=colour2)
             ax.set_ylim(ylim)
-            ax.set_xlim(xlim)
+            ax.set_xlim(
+                left=2,
+                right=20
+            )
             ax.set_title(label=ax_title[i][j])
             ax.set_ylabel(ylabel=yaxislabel)
             ax.set_xlabel(xlabel=xaxislabel)
