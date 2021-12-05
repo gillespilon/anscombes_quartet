@@ -8,6 +8,8 @@ Anscombe's quartet
 ./anscombes_quartet.py
 """
 
+from typing import Tuple
+
 from numpy.polynomial import polynomial as nppoly
 import matplotlib.pyplot as plt
 import matplotlib.axes as axes
@@ -83,7 +85,7 @@ def plot_scatter(
     return ax
 
 
-def load_data():
+def load_data() -> Tuple[pd.DataFrame]:
     '''
     Load the Anscombe Quartet data into separate dataframes.
     '''
@@ -111,7 +113,7 @@ def load_data():
     aq2 = pd.DataFrame(data=data_aq2)
     aq3 = pd.DataFrame(data=data_aq3)
     aq4 = pd.DataFrame(data=data_aq4)
-    return aq1, aq2, aq3, aq4
+    return (aq1, aq2, aq3, aq4)
 
 
 def plot_one_in_four(df):
