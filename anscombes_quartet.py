@@ -17,7 +17,6 @@ from itertools import chain
 import datasense as ds
 import pandas as pd
 
-fig_title = "Anscombe's Quartet"
 ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
 yaxislabel = 'Y'
 xaxislabel = 'X'
@@ -29,6 +28,7 @@ colour2 = '#33bbee'
 def main():
     output_url = 'anscombes_quartet.html'
     header_title = "Asncombe's Quartet"
+    fig_title = "Anscombe's Quartet"
     header_id = 'anscombes-quartet'
     original_stdout = ds.html_begin(
         output_url=output_url,
@@ -38,8 +38,8 @@ def main():
     aq1, aq2, aq3, aq4 = load_data()
     df = ((aq1, aq2), (aq3, aq4))
     axs = (('ax1', 'ax2'), ('ax3', 'ax4'))
-    plot_many_in_one(df, axs)
-    plot_one_in_four(df)
+    plot_many_in_one(df, axs, fig_title)
+    plot_one_in_four(df, fig_title)
     ds.html_end(
         original_stdout=original_stdout,
         output_url=output_url
@@ -51,7 +51,8 @@ def plot_scatter(
     dfx: pd.DataFrame,
     dfy: pd.DataFrame,
     i: int,
-    j: int
+    j: int,
+    fig_title
 ) -> axes.Axes:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -116,7 +117,10 @@ def load_data() -> Tuple[pd.DataFrame]:
     return (aq1, aq2, aq3, aq4)
 
 
-def plot_one_in_four(df: pd.DataFrame) -> NoReturn:
+def plot_one_in_four(
+    df: pd.DataFrame,
+    fig_title: str
+) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
     '''
@@ -126,7 +130,8 @@ def plot_one_in_four(df: pd.DataFrame) -> NoReturn:
                 dfx=df[i][j]['x'],
                 dfy=df[i][j]['y'],
                 i=i,
-                j=j
+                j=j,
+                fig_title=fig_title
             )
             plt.savefig(fname=f'aq{i}{j}.svg')
             ds.html_figure(file_name=f'aq{i}{j}.svg')
@@ -134,7 +139,8 @@ def plot_one_in_four(df: pd.DataFrame) -> NoReturn:
 
 def plot_many_in_one(
     df: pd.DataFrame,
-    axs: axes.Axes
+    axs: axes.Axes,
+    fig_title
 ) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in an axes within a figure.
