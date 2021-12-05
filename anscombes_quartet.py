@@ -44,7 +44,13 @@ def main():
     )
 
 
-def plot_scatter(dfx, dfy, i, j):
+def plot_scatter(
+    *,
+    dfx: pd.DataFrame,
+    dfy: pd.DataFrame,
+    i: int,
+    j: int
+) -> axes.Axes:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
     '''
@@ -114,7 +120,12 @@ def plot_one_in_four(df):
     '''
     for i in range(2):
         for j in range(2):
-            plot_scatter(df[i][j]['x'], df[i][j]['y'], i, j)
+            plot_scatter(
+                dfx=df[i][j]['x'],
+                dfy=df[i][j]['y'],
+                i=i,
+                j=j
+            )
             plt.savefig(fname=f'aq{i}{j}.svg')
             ds.html_figure(file_name=f'aq{i}{j}.svg')
 
