@@ -8,6 +8,8 @@ The purpose of this repository is to demonstrate a scatter plot with a linear re
 
 ## Data
 
+The data are defined inside the .py script.
+
 anscombes_quartet_1. The data form a linear relationship with variation around the regression line.
 
 anscombes_quartet_2. The data form a curved relationship.
