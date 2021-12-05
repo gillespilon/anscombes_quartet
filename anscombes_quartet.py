@@ -38,7 +38,11 @@ def main():
     aq1, aq2, aq3, aq4 = load_data()
     df = ((aq1, aq2), (aq3, aq4))
     axs = (('ax1', 'ax2'), ('ax3', 'ax4'))
-    plot_many_in_one(df, axs, fig_title)
+    plot_many_in_one(
+        df=df,
+        axs=axs,
+        fig_title=fig_title
+    )
     plot_one_in_four(
         df=df,
         fig_title=fig_title
@@ -142,6 +146,7 @@ def plot_one_in_four(
 
 
 def plot_many_in_one(
+    *,
     df: pd.DataFrame,
     axs: axes.Axes,
     fig_title
