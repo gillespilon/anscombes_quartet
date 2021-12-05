@@ -33,7 +33,7 @@ def main():
         header_title=header_title,
         header_id=header_id
     )
-    aq1, aq2, aq3, aq4 = read_files()
+    aq1, aq2, aq3, aq4 = load_data()
     df = [(aq1, aq2), (aq3, aq4)]
     plot_four_in_one(df)
     plot_one_in_four(df)
@@ -59,8 +59,8 @@ def plot_scatter(dfx, dfy, i, j):
     b, m = nppoly.polyfit(dfx, dfy, 1)
     ax.plot(dfx, m*dfx + b, '-', color=colour2)
     ax.set_ylim(
-        left=2,
-        right=14
+        bottom=2,
+        top=14
     )
     ax.set_xlim(
         left=2,
@@ -73,14 +73,34 @@ def plot_scatter(dfx, dfy, i, j):
     return ax
 
 
-def read_files():
+def load_data():
     '''
-    Read each of the Anscombe Quartet data files into a separate dataframe.
+    Load the Anscombe Quartet data into separate dataframes.
     '''
-    aq1 = pd.read_csv('aq1.csv')
-    aq2 = pd.read_csv('aq2.csv')
-    aq3 = pd.read_csv('aq3.csv')
-    aq4 = pd.read_csv('aq4.csv')
+    data_aq1 = {
+        'x': [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5],
+        'y': [
+            8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68
+        ]
+    }
+    data_aq2 = {
+        'x': [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5],
+        'y': [9.14, 8.14, 8.74, 8.77, 9.26, 8.1, 6.13, 3.1, 9.13, 7.26, 4.74]
+    }
+    data_aq3 = {
+        'x': [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5],
+        'y': [
+            7.46, 6.77, 12.74, 7.11, 7.81, 8.84, 6.08, 5.39, 8.15, 6.42, 5.73
+        ]
+    }
+    data_aq4 = {
+        'x': [8, 8, 8, 8, 8, 8, 8, 19, 8, 8, 8],
+        'y': [6.58, 5.76, 7.71, 8.84, 8.47, 7.04, 5.25, 12.5, 5.56, 7.91, 6.89]
+    }
+    aq1 = pd.DataFrame(data=data_aq1)
+    aq2 = pd.DataFrame(data=data_aq2)
+    aq3 = pd.DataFrame(data=data_aq3)
+    aq4 = pd.DataFrame(data=data_aq4)
     return aq1, aq2, aq3, aq4
 
 
@@ -120,8 +140,8 @@ def plot_four_in_one(df):
             b, m = nppoly.polyfit(df[i][j]['x'], df[i][j]['y'], 1)
             ax.plot(df[i][j]['x'], m*df[i][j]['x'] + b, '-', color=colour2)
             ax.set_ylim(
-                left=2,
-                right=14
+                bottom=2,
+                top=14
             )
             ax.set_xlim(
                 left=2,
