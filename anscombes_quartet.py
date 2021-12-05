@@ -34,8 +34,9 @@ def main():
         header_id=header_id
     )
     aq1, aq2, aq3, aq4 = load_data()
-    df = [(aq1, aq2), (aq3, aq4)]
-    plot_four_in_one(df)
+    df = ((aq1, aq2), (aq3, aq4))
+    axs = (('ax1', 'ax2'), ('ax3', 'ax4'))
+    plot_many_in_one(df, axs)
     plot_one_in_four(df)
     ds.html_end(
         original_stdout=original_stdout,
@@ -118,12 +119,12 @@ def plot_one_in_four(df):
             ds.html_figure(file_name=f'aq{i}{j}.svg')
 
 
-def plot_four_in_one(df):
+def plot_many_in_one(df, axs):
     '''
     Plot each Anscombe Quartet graph in an axes within a figure.
     '''
     fig = plt.figure(figsize=(figsize))
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(
+    fig, axs = plt.subplots(
         nrows=2,
         ncols=2,
         sharex=True,
@@ -133,7 +134,7 @@ def plot_four_in_one(df):
         t=fig_title,
         fontweight="bold"
     )
-    axs = ((ax1, ax2), (ax3, ax4))
+    # axs = ((ax1, ax2), (ax3, ax4))
     combinations = tuple(zip(chain(*axs), chain(*df)))
     for axx, dff in combinations:
         axx.scatter(
