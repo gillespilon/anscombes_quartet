@@ -17,9 +17,6 @@ from itertools import chain
 import datasense as ds
 import pandas as pd
 
-colour1 = '#0077bb'
-colour2 = '#33bbee'
-
 
 def main():
     ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
@@ -27,6 +24,8 @@ def main():
     header_title = "Asncombe's Quartet"
     fig_title = "Anscombe's Quartet"
     header_id = 'anscombes-quartet'
+    colour1 = '#0077bb'
+    colour2 = '#33bbee'
     figsize = [8, 6]
     xlabel = 'X'
     ylabel = 'Y'
@@ -44,7 +43,9 @@ def main():
         fig_title=fig_title,
         xlabel=xlabel,
         ylabel=ylabel,
-        figsize=figsize
+        figsize=figsize,
+        colour1=colour1,
+        colour2=colour2
     )
     plot_one_in_four(
         df=df,
@@ -52,7 +53,9 @@ def main():
         ax_title=ax_title,
         xlabel=xlabel,
         ylabel=ylabel,
-        figsize=figsize
+        figsize=figsize,
+        colour1=colour1,
+        colour2=colour2
     )
     ds.html_end(
         original_stdout=original_stdout,
@@ -70,7 +73,9 @@ def plot_scatter(
     ax_title: str,
     xlabel: str,
     ylabel: str,
-    figsize: List[float]
+    figsize: List[float],
+    colour1: str,
+    colour2: str
 ) -> axes.Axes:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -142,7 +147,9 @@ def plot_one_in_four(
     ax_title: str,
     xlabel: str,
     ylabel: str,
-    figsize: List[float]
+    figsize: List[float],
+    colour1: str,
+    colour2: str
 ) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -158,7 +165,9 @@ def plot_one_in_four(
                 ax_title=ax_title,
                 xlabel=xlabel,
                 ylabel=ylabel,
-                figsize=figsize
+                figsize=figsize,
+                colour1=colour1,
+                colour2=colour2
             )
             plt.savefig(fname=f'aq{i}{j}.svg')
             ds.html_figure(file_name=f'aq{i}{j}.svg')
@@ -171,7 +180,9 @@ def plot_many_in_one(
     fig_title: str,
     xlabel: str,
     ylabel: str,
-    figsize: List[float]
+    figsize: List[float],
+    colour1: str,
+    colour2: str
 ) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in an axes within a figure.
