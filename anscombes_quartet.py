@@ -9,9 +9,9 @@ Anscombe's quartet
 """
 
 from numpy.polynomial import polynomial as nppoly
-from matplotlib.gridspec import GridSpec
 import matplotlib.pyplot as plt
 import matplotlib.axes as axes
+from itertools import chain
 import datasense as ds
 import pandas as pd
 
@@ -63,7 +63,7 @@ def plot_scatter(dfx, dfy, i, j):
         top=14
     )
     ax.set_xlim(
-        left=2,
+        left=0,
         right=20
     )
     ax.set_title(label=ax_title[i][j])
@@ -120,39 +120,43 @@ def plot_four_in_one(df):
     Plot each Anscombe Quartet graph in an axes within a figure.
     '''
     fig = plt.figure(figsize=(figsize))
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(
+        nrows=2,
+        ncols=2,
+        sharex=True,
+        sharey=True
+    )
     fig.suptitle(
         t=fig_title,
         fontweight="bold"
     )
-    gs = GridSpec(2, 2, figure=fig)
-    for i in range(2):
-        for j in range(2):
-            ax = fig.add_subplot(gs[i, j])
-            ax.scatter(
-                df[i][j]['x'],
-                df[i][j]['y'],
-                color=colour1,
-                linewidth=0,
-                linestyle="-",
-                s=10,
-                label="I"
-            )
-            b, m = nppoly.polyfit(df[i][j]['x'], df[i][j]['y'], 1)
-            ax.plot(df[i][j]['x'], m*df[i][j]['x'] + b, '-', color=colour2)
-            ax.set_ylim(
-                bottom=2,
-                top=14
-            )
-            ax.set_xlim(
-                left=2,
-                right=20
-            )
-            ax.set_title(label=ax_title[i][j])
-            ax.set_ylabel(ylabel=yaxislabel)
-            ax.set_xlabel(xlabel=xaxislabel)
-            ds.despine(ax)
-    plt.tight_layout(pad=3)
-    plt.savefig(fname='aq.svg')
+    axs = ((ax1, ax2), (ax3, ax4))
+    combinations = tuple(zip(chain(*axs), chain(*df)))
+    for axx, dff in combinations:
+        axx.scatter(
+            dff['x'],
+            dff['y'],
+            color=colour1,
+            linewidth=0,
+            linestyle="-",
+            s=10,
+            label="I"
+        )
+        b, m = nppoly.polyfit(dff['x'], dff['y'], 1)
+        axx.plot(dff['x'], m*dff['x'] + b, '-', color=colour2)
+        axx.set_ylim(
+            bottom=2,
+            top=14
+        )
+        axx.set_xlim(
+            left=0,
+            right=20
+        )
+        # axx.set_title(label=ax_title[i][j])
+        axx.set_ylabel(ylabel=yaxislabel)
+        axx.set_xlabel(xlabel=xaxislabel)
+        ds.despine(axx)
+    fig.savefig(fname='aq.svg')
     ds.html_figure(file_name='aq.svg')
 
 
