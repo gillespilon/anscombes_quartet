@@ -4,8 +4,6 @@ Anscombe's quartet
 
 - Create Anscombe's quartet of four graphs as four axes in one figure.
 - Create Anscombe's quartet of four graphs as four separate figures.
-
-./anscombes_quartet.py
 """
 
 from typing import List, NoReturn, Tuple
@@ -78,7 +76,7 @@ def plot_scatter(
     colour2: str
 ) -> axes.Axes:
     '''
-    Plot each Anscombe Quartet graph in a figure by itself.
+    Scatter plot with first-order polynomial regresion line.
     '''
     fig, ax = plt.subplots(
         nrows=1,
@@ -111,7 +109,7 @@ def plot_scatter(
 
 def load_data() -> Tuple[pd.DataFrame]:
     '''
-    Load the Anscombe Quartet data into separate dataframes.
+    Load data into separate dataframes.
     '''
     data_aq1 = {
         'x': [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5],
@@ -152,7 +150,7 @@ def plot_one_in_four(
     colour2: str
 ) -> NoReturn:
     '''
-    Plot each Anscombe Quartet graph in a figure by itself.
+    Plot each graph in a figure by itself.
     '''
     for i in range(2):
         for j in range(2):
@@ -185,7 +183,7 @@ def plot_many_in_one(
     colour2: str
 ) -> NoReturn:
     '''
-    Plot each Anscombe Quartet graph in an axes within a figure.
+    Plot each graph in an axes within a figure.
     '''
     fig = plt.figure(figsize=(figsize))
     fig, axs = plt.subplots(
