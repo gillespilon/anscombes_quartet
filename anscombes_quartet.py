@@ -8,7 +8,7 @@ Anscombe's quartet
 ./anscombes_quartet.py
 """
 
-from typing import NoReturn, Tuple
+from typing import List, NoReturn, Tuple
 
 from numpy.polynomial import polynomial as nppoly
 import matplotlib.pyplot as plt
@@ -17,7 +17,6 @@ from itertools import chain
 import datasense as ds
 import pandas as pd
 
-figsize = [8, 6]
 colour1 = '#0077bb'
 colour2 = '#33bbee'
 
@@ -28,6 +27,7 @@ def main():
     header_title = "Asncombe's Quartet"
     fig_title = "Anscombe's Quartet"
     header_id = 'anscombes-quartet'
+    figsize = [8, 6]
     xlabel = 'X'
     ylabel = 'Y'
     original_stdout = ds.html_begin(
@@ -43,14 +43,16 @@ def main():
         axs=axs,
         fig_title=fig_title,
         xlabel=xlabel,
-        ylabel=ylabel
+        ylabel=ylabel,
+        figsize=figsize
     )
     plot_one_in_four(
         df=df,
         fig_title=fig_title,
         ax_title=ax_title,
         xlabel=xlabel,
-        ylabel=ylabel
+        ylabel=ylabel,
+        figsize=figsize
     )
     ds.html_end(
         original_stdout=original_stdout,
@@ -64,10 +66,11 @@ def plot_scatter(
     dfy: pd.DataFrame,
     i: int,
     j: int,
-    fig_title,
-    ax_title,
+    fig_title: str,
+    ax_title: str,
     xlabel: str,
-    ylabel: str
+    ylabel: str,
+    figsize: List[float]
 ) -> axes.Axes:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -138,7 +141,8 @@ def plot_one_in_four(
     fig_title: str,
     ax_title: str,
     xlabel: str,
-    ylabel: str
+    ylabel: str,
+    figsize: List[float]
 ) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -153,7 +157,8 @@ def plot_one_in_four(
                 fig_title=fig_title,
                 ax_title=ax_title,
                 xlabel=xlabel,
-                ylabel=ylabel
+                ylabel=ylabel,
+                figsize=figsize
             )
             plt.savefig(fname=f'aq{i}{j}.svg')
             ds.html_figure(file_name=f'aq{i}{j}.svg')
@@ -163,9 +168,10 @@ def plot_many_in_one(
     *,
     df: pd.DataFrame,
     axs: axes.Axes,
-    fig_title,
+    fig_title: str,
     xlabel: str,
-    ylabel: str
+    ylabel: str,
+    figsize: List[float]
 ) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in an axes within a figure.
