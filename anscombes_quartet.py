@@ -39,7 +39,10 @@ def main():
     df = ((aq1, aq2), (aq3, aq4))
     axs = (('ax1', 'ax2'), ('ax3', 'ax4'))
     plot_many_in_one(df, axs, fig_title)
-    plot_one_in_four(df, fig_title)
+    plot_one_in_four(
+        df=df,
+        fig_title=fig_title
+    )
     ds.html_end(
         original_stdout=original_stdout,
         output_url=output_url
@@ -118,6 +121,7 @@ def load_data() -> Tuple[pd.DataFrame]:
 
 
 def plot_one_in_four(
+    *,
     df: pd.DataFrame,
     fig_title: str
 ) -> NoReturn:
