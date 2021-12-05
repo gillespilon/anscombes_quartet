@@ -17,8 +17,6 @@ from itertools import chain
 import datasense as ds
 import pandas as pd
 
-yaxislabel = 'Y'
-xaxislabel = 'X'
 figsize = [8, 6]
 colour1 = '#0077bb'
 colour2 = '#33bbee'
@@ -30,6 +28,8 @@ def main():
     header_title = "Asncombe's Quartet"
     fig_title = "Anscombe's Quartet"
     header_id = 'anscombes-quartet'
+    xlabel = 'X'
+    ylabel = 'Y'
     original_stdout = ds.html_begin(
         output_url=output_url,
         header_title=header_title,
@@ -41,12 +41,16 @@ def main():
     plot_many_in_one(
         df=df,
         axs=axs,
-        fig_title=fig_title
+        fig_title=fig_title,
+        xlabel=xlabel,
+        ylabel=ylabel
     )
     plot_one_in_four(
         df=df,
         fig_title=fig_title,
-        ax_title=ax_title
+        ax_title=ax_title,
+        xlabel=xlabel,
+        ylabel=ylabel
     )
     ds.html_end(
         original_stdout=original_stdout,
@@ -61,7 +65,9 @@ def plot_scatter(
     i: int,
     j: int,
     fig_title,
-    ax_title
+    ax_title,
+    xlabel: str,
+    ylabel: str
 ) -> axes.Axes:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -89,8 +95,8 @@ def plot_scatter(
         right=20
     )
     ax.set_title(label=ax_title[i][j])
-    ax.set_ylabel(ylabel=yaxislabel)
-    ax.set_xlabel(xlabel=xaxislabel)
+    ax.set_ylabel(ylabel=ylabel)
+    ax.set_xlabel(xlabel=xlabel)
     ds.despine(ax)
     return ax
 
@@ -130,7 +136,9 @@ def plot_one_in_four(
     *,
     df: pd.DataFrame,
     fig_title: str,
-    ax_title: str
+    ax_title: str,
+    xlabel: str,
+    ylabel: str
 ) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
@@ -143,7 +151,9 @@ def plot_one_in_four(
                 i=i,
                 j=j,
                 fig_title=fig_title,
-                ax_title=ax_title
+                ax_title=ax_title,
+                xlabel=xlabel,
+                ylabel=ylabel
             )
             plt.savefig(fname=f'aq{i}{j}.svg')
             ds.html_figure(file_name=f'aq{i}{j}.svg')
@@ -153,7 +163,9 @@ def plot_many_in_one(
     *,
     df: pd.DataFrame,
     axs: axes.Axes,
-    fig_title
+    fig_title,
+    xlabel: str,
+    ylabel: str
 ) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in an axes within a figure.
@@ -192,8 +204,8 @@ def plot_many_in_one(
             right=20
         )
         # axx.set_title(label=ax_title[i][j])
-        axx.set_ylabel(ylabel=yaxislabel)
-        axx.set_xlabel(xlabel=xaxislabel)
+        axx.set_xlabel(xlabel=xlabel)
+        axx.set_ylabel(ylabel=ylabel)
         ds.despine(axx)
     fig.savefig(fname='aq.svg')
     ds.html_figure(file_name='aq.svg')
