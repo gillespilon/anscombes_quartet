@@ -8,7 +8,7 @@ Anscombe's quartet
 ./anscombes_quartet.py
 """
 
-from typing import Tuple
+from typing import NoReturn, Tuple
 
 from numpy.polynomial import polynomial as nppoly
 import matplotlib.pyplot as plt
@@ -116,7 +116,7 @@ def load_data() -> Tuple[pd.DataFrame]:
     return (aq1, aq2, aq3, aq4)
 
 
-def plot_one_in_four(df):
+def plot_one_in_four(df: pd.DataFrame) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in a figure by itself.
     '''
