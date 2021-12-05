@@ -28,8 +28,8 @@ colour2 = '#33bbee'
 
 def main():
     output_url = 'anscombes_quartet.html'
-    header_title = 'anscombes_quartet'
-    header_id = 'anscombes-quarter'
+    header_title = "Asncombe's Quartet"
+    header_id = 'anscombes-quartet'
     original_stdout = ds.html_begin(
         output_url=output_url,
         header_title=header_title,
@@ -132,7 +132,10 @@ def plot_one_in_four(df: pd.DataFrame) -> NoReturn:
             ds.html_figure(file_name=f'aq{i}{j}.svg')
 
 
-def plot_many_in_one(df, axs):
+def plot_many_in_one(
+    df: pd.DataFrame,
+    axs: axes.Axes
+) -> NoReturn:
     '''
     Plot each Anscombe Quartet graph in an axes within a figure.
     '''
