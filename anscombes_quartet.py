@@ -17,7 +17,9 @@ import pandas as pd
 
 
 def main():
-    ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Dataset IV')]
+    # define parameters
+    ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Data set IV')]
+    axs = (('ax1', 'ax2'), ('ax3', 'ax4'))
     output_url = 'anscombes_quartet.html'
     header_title = "Asncombe's Quartet"
     fig_title = "Anscombe's Quartet"
@@ -33,10 +35,10 @@ def main():
         header_id=header_id
     )
     aq1, aq2, aq3, aq4 = load_data()
-    df = ((aq1, aq2), (aq3, aq4))
-    axs = (('ax1', 'ax2'), ('ax3', 'ax4'))
+    dfs = ((aq1, aq2), (aq3, aq4))
+    combinations = tuple(zip(chain(*axs), chain(*dfs), chain(*ax_title)))
     plot_many_in_one(
-        df=df,
+        df=dfs,
         axs=axs,
         fig_title=fig_title,
         xlabel=xlabel,
@@ -45,66 +47,42 @@ def main():
         colour1=colour1,
         colour2=colour2
     )
-    plot_one_in_four(
-        df=df,
-        fig_title=fig_title,
-        ax_title=ax_title,
-        xlabel=xlabel,
-        ylabel=ylabel,
-        figsize=figsize,
-        colour1=colour1,
-        colour2=colour2
-    )
+    # plot each data set as a separate graph
+    for ax, df, ax_title in combinations:
+        fig, ax = ds.plot_scatter_x_y(
+            X=df['x'],
+            y=df['y'],
+            colour=colour1
+        )
+        fig.suptitle(
+            t=fig_title,
+            fontweight='bold'
+        )
+        b, m = nppoly.polyfit(df['x'], df['y'], 1)
+        ax.plot(
+            df['x'],
+            m*df['x'] + b,
+            '-',
+            color=colour2
+        )
+        ax.set_ylim(
+            bottom=2,
+            top=13
+        )
+        ax.set_xlim(
+            left=3,
+            right=15
+        )
+        ax.set_title(label=ax_title)
+        ax.set_ylabel(ylabel=ylabel)
+        ax.set_xlabel(xlabel=xlabel)
+        ds.despine(ax)
+        fig.savefig(fname=f'{"_".join(ax_title.split()).lower()}.svg')
+        ds.html_figure(file_name=f'{"_".join(ax_title.split()).lower()}.svg')
     ds.html_end(
         original_stdout=original_stdout,
         output_url=output_url
     )
-
-
-def plot_scatter(
-    *,
-    dfx: pd.DataFrame,
-    dfy: pd.DataFrame,
-    i: int,
-    j: int,
-    fig_title: str,
-    ax_title: str,
-    xlabel: str,
-    ylabel: str,
-    figsize: List[float],
-    colour1: str,
-    colour2: str
-) -> axes.Axes:
-    '''
-    Scatter plot with first-order polynomial regresion line.
-    '''
-    fig, ax = plt.subplots(
-        nrows=1,
-        ncols=1,
-        figsize=figsize
-    )
-    fig.suptitle(
-        t=fig_title,
-        fontweight='bold'
-    )
-    ax.scatter(dfx, dfy,
-               color=colour1, linewidth=0,
-               linestyle="-", s=10, label="I")
-    b, m = nppoly.polyfit(dfx, dfy, 1)
-    ax.plot(dfx, m*dfx + b, '-', color=colour2)
-    ax.set_ylim(
-        bottom=2,
-        top=14
-    )
-    ax.set_xlim(
-        left=0,
-        right=20
-    )
-    ax.set_title(label=ax_title[i][j])
-    ax.set_ylabel(ylabel=ylabel)
-    ax.set_xlabel(xlabel=xlabel)
-    ds.despine(ax)
-    return ax
 
 
 def load_data() -> Tuple[pd.DataFrame]:
@@ -136,39 +114,6 @@ def load_data() -> Tuple[pd.DataFrame]:
     aq3 = pd.DataFrame(data=data_aq3)
     aq4 = pd.DataFrame(data=data_aq4)
     return (aq1, aq2, aq3, aq4)
-
-
-def plot_one_in_four(
-    *,
-    df: pd.DataFrame,
-    fig_title: str,
-    ax_title: str,
-    xlabel: str,
-    ylabel: str,
-    figsize: List[float],
-    colour1: str,
-    colour2: str
-) -> NoReturn:
-    '''
-    Plot each graph in a figure by itself.
-    '''
-    for i in range(2):
-        for j in range(2):
-            plot_scatter(
-                dfx=df[i][j]['x'],
-                dfy=df[i][j]['y'],
-                i=i,
-                j=j,
-                fig_title=fig_title,
-                ax_title=ax_title,
-                xlabel=xlabel,
-                ylabel=ylabel,
-                figsize=figsize,
-                colour1=colour1,
-                colour2=colour2
-            )
-            plt.savefig(fname=f'aq{i}{j}.svg')
-            ds.html_figure(file_name=f'aq{i}{j}.svg')
 
 
 def plot_many_in_one(
@@ -212,11 +157,11 @@ def plot_many_in_one(
         axx.plot(dff['x'], m*dff['x'] + b, '-', color=colour2)
         axx.set_ylim(
             bottom=2,
-            top=14
+            top=13
         )
         axx.set_xlim(
-            left=0,
-            right=20
+            left=3,
+            right=15
         )
         # axx.set_title(label=ax_title[i][j])
         axx.set_xlabel(xlabel=xlabel)
