@@ -76,7 +76,7 @@ def main():
         ax.set_title(label=ax_title)
         ax.set_ylabel(ylabel=ylabel)
         ax.set_xlabel(xlabel=xlabel)
-        ds.despine(ax)
+        ds.despine(ax=ax)
         fig.savefig(fname=f'{"_".join(ax_title.split()).lower()}.svg')
         ds.html_figure(file_name=f'{"_".join(ax_title.split()).lower()}.svg')
     ds.html_end(
@@ -166,7 +166,7 @@ def plot_many_in_one(
         # axx.set_title(label=ax_title[i][j])
         axx.set_xlabel(xlabel=xlabel)
         axx.set_ylabel(ylabel=ylabel)
-        ds.despine(axx)
+        ds.despine(ax=axx)
     fig.savefig(fname='aq.svg')
     ds.html_figure(file_name='aq.svg')
 
