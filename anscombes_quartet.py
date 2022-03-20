@@ -21,7 +21,7 @@ def main():
     ax_title = [('Data set I', 'Data set II'), ('Data set III', 'Data set IV')]
     axs = (('ax1', 'ax2'), ('ax3', 'ax4'))
     output_url = 'anscombes_quartet.html'
-    header_title = "Asncombe's Quartet"
+    header_title = "Anscombe's Quartet"
     fig_title = "Anscombe's Quartet"
     header_id = 'anscombes-quartet'
     colour1 = '#0077bb'
