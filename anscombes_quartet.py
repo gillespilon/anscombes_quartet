@@ -35,6 +35,7 @@ def main():
     aq1, aq2, aq3, aq4 = load_data()
     dfs = ((aq1, aq2), (aq3, aq4))
     combinations = tuple(zip(chain(*axs), chain(*dfs), chain(*ax_title)))
+    # plot each data set in a 2 x 2 matrix
     plot_many_in_one(
         df=dfs,
         axs=axs,
@@ -109,28 +110,42 @@ def plot_many_in_one(
     """
     Plot each graph in an axes within a figure.
     """
-    fig = plt.figure(figsize=(figsize))
-    fig, axs = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=True)
-    fig.suptitle(t=fig_title, fontweight="bold")
-    combinations = tuple(zip(chain(*axs), chain(*df)))
-    for axx, dff in combinations:
-        axx.scatter(
-            dff["x"],
-            dff["y"],
-            color=colour1,
-            linewidth=0,
-            linestyle="-",
-            s=10,
-            label="I",
+    axes_title = ['AQ1', 'AQ2', 'AQ3', 'AQ4']
+    colour1, colour2 = '#0077bb', '#33bbee'
+    left, right, top, bottom = 2, 20, 14, 2
+    x_axis_label = 'X axis label (units)'
+    y_axis_label = 'Y axis label (units)'
+    fig_title = "Anscombe's Quartet"
+    figsize = (12, 9)
+    fig = plt.figure(figsize=figsize)
+    fig.suptitle(t=fig_title, fontweight='bold')
+    for index in range(1, 5):
+        df = ds.read_file(file_name=f'aq{index}.csv')
+        ax = fig.add_subplot(2, 2, index)
+        ax.plot(
+            df['x'],
+            df['y'],
+            marker='.',
+            linestyle='',
+            color=colour1
         )
-        b, m = nppoly.polyfit(dff["x"], dff["y"], 1)
-        axx.plot(dff["x"], m * dff["x"] + b, "-", color=colour2)
-        axx.set_ylim(bottom=2, top=13)
-        axx.set_xlim(left=3, right=15)
-        # axx.set_title(label=ax_title[i][j])
-        axx.set_xlabel(xlabel=xlabel)
-        axx.set_ylabel(ylabel=ylabel)
-        ds.despine(ax=axx)
+        b, m = nppoly.polyfit(df['x'], df['y'], 1)
+        equation = f"$y = {b:.1f} + {m:.1f}x$"
+        ax.plot(df['x'], m*df['x'] + b, '-', color=colour2, label=equation)
+        ax.set_ylim(
+            bottom=bottom,
+            top=top
+        )
+        ax.set_xlim(
+            left=left,
+            right=right
+        )
+        ax.set_title(label=f"{axes_title[index-1]}", fontweight="bold")
+        ax.set_ylabel(ylabel=y_axis_label, fontweight="bold")
+        ax.set_xlabel(xlabel=x_axis_label, fontweight="bold")
+        ax.legend(frameon=False)
+        ds.despine(ax=ax)
+    plt.tight_layout(pad=3)
     fig.savefig(fname="aq.svg")
     ds.html_figure(file_name="aq.svg")
 
