@@ -63,6 +63,10 @@ anscombes_quartet_4. The data form a vertical relationship and one extreme outli
 </tr>
 </table>
 
+## Visualizations
+
+![Anscombe's quartet](anscombes_quartet.svg)
+
 ## References
 
 Anscombe, F.J. 1973. "Graphs in Statistical Analysis." *American Statistician* 27(1): 17-21. [JSTOR 2682899](https://www.jstor.org/stable/2682899).
