@@ -6,41 +6,57 @@ Label figure, axes.
 Title figure, axes.
 """
 
-import matplotlib.pyplot as plt
+from pathlib import Path
 from typing import Tuple
 
 from numpy.polynomial import polynomial as nppoly
+import matplotlib.pyplot as plt
 import datasense as ds
 import pandas as pd
 
 
 def main():
     axes_title = ["Data set 1", "Data set 2", "Data set 3", "Data set 4"]
-    colour1, colour2 = "#0077bb", "#33bbee"
     left, right, top, bottom = 2, 20, 14, 2
+    output_url = "anscombes_quartet.html"
     x_axis_label = "X axis label (units)"
     y_axis_label = "Y axis label (units)"
-    fig_title = "Anscombe's Quartet"
+    header_title = "Anscombe’s Quartet"
+    fig_title = "Anscombe’s Quartet"
+    header_id = "anscombes-quartet"
+    colour_blue = "#0077bb"
+    colour_cyan = "#33bbee"
     figsize = (12, 9)
+    original_stdout = ds.html_begin(
+        output_url=output_url, header_title=header_title, header_id=header_id
+    )
+    ds.script_summary(script_path=Path(__file__), action="started at")
+    ds.style_graph()
     df1, df2, df3, df4 = create_dataframe()
     fig = plt.figure(figsize=figsize)
-    fig.suptitle(t=fig_title, fontweight="bold")
+    fig.suptitle(t=fig_title)
     for index in range(1, 5):
         df = eval(f"df{index}")
         ax = fig.add_subplot(2, 2, index)
-        ax.plot(df["x"], df["y"], marker=".", linestyle="", color=colour1)
+        ax.plot(df["x"], df["y"], linestyle="", color=colour_blue)
         b, m = nppoly.polyfit(df["x"], df["y"], 1)
         equation = f"$y = {b:.1f} + {m:.1f}x$"
-        ax.plot(df["x"], m * df["x"] + b, "-", color=colour2, label=equation)
+        ax.plot(
+            df["x"], m * df["x"] + b, marker="",
+            color=colour_cyan, label=equation
+        )
         ax.set_ylim(bottom=bottom, top=top)
         ax.set_xlim(left=left, right=right)
-        ax.set_title(label=f"{axes_title[index-1]}", fontweight="bold")
-        ax.set_ylabel(ylabel=y_axis_label, fontweight="bold")
-        ax.set_xlabel(xlabel=x_axis_label, fontweight="bold")
+        ax.set_title(label=f"{axes_title[index-1]}")
+        ax.set_ylabel(ylabel=y_axis_label)
+        ax.set_xlabel(xlabel=x_axis_label)
         ax.legend(frameon=False)
         ds.despine(ax=ax)
     plt.tight_layout(pad=3)
     fig.savefig(fname="anscombes_quartet.svg", format="svg")
+    ds.html_figure(file_name="anscombes_quartet.svg")
+    ds.script_summary(script_path=Path(__file__), action="finished at")
+    ds.html_end(original_stdout=original_stdout, output_url=output_url)
 
 
 def create_dataframe() -> Tuple[pd.DataFrame]:
