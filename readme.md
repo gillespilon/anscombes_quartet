@@ -2,7 +2,7 @@
 
 ## In brevi
 
-Francis Anscombe created four data sets in 1973 to demonstrate the value of graphical analysis before statistical analysis. Each set of 11 x-y pairs has nearly identical descriptive statistics and different graphical analyses.
+Francis Anscombe created four datasets in 1973 to demonstrate the value of graphical analysis before statistical analysis. Each set of 11 x-y pairs has nearly identical descriptive statistics and different graphical analyses.
 
 The purpose of this repository is to demonstrate a scatter plot with a linear regression line, four scatter plots in a grid, and descriptive statistics.
 
